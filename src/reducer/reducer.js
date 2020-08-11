@@ -24,44 +24,28 @@ export default function reducer(state = initialState, action) {
     //             feature => feature.id === Number(action.payload)
     //         );
     switch(action.type) {
+        
         case ADD_FEATURES:
-            console.log('Inside Reducer')
+            console.log('Inside Reducer', action.payload)
+            
             return {
-                    ...state
-                // car: {
-                //     ...state.car,
-                //     price: state.car.price + state.additionalFeatures[id].price,
-                //     features: [
-                //         ...state.car.features,
-                //         {
-                //             feature: state.additionalFeatures[id].name,
-                //             price: state.additionalFeatures[id].price
-                //         }
-                //     ]
-                // },
-                // additionalFeatures: [...state.additionalFeatures],
-                // additionalPrice: state.additionalPrice + state.additionalFeatures.price
-
-
+                   ...state, 
+                car: {
+                    ...state.car,
+                     price:  state.car.price + action.payload.price,
+                     features: [...state.car.features, action.payload]  
+                }
             }
         case REMOVE_FEATURES:
             console.log('Inside Reducer 2')
             
             return {
-                ...state
-                // car: {
-                // ...state.car,
-                //     price: state.car.price - state.additionalFeatures[id].price,
-                //     features: [
-                //         ...state.car.features,
-                //         {
-                //             feature: state.additionalFeatures[id].name,
-                //             price: state.additionalFeatures[id].price
-                //         }
-                //     ]
-                // },
-                // additionalFeatures: [...state.additionalFeatures],
-                // additionalPrice: state.additionalPrice - state.additionalFeatures.price
+                ...state,
+                car: {
+                ...state.car,
+                    price: state.car.price - action.payload.price,
+                    features: state.car.features.filter(feature => feature.id = !action.payload.id)
+                },
             }
         default:
             console.log('Inside Reducer 3')
